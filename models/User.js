@@ -20,17 +20,17 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    posts:[{
+        type: mongoose.ObjectId,
+        ref: 'Post'
+    }]
 });
 
 UserSchema.pre('save', function (next) {
-    // if (!this.isModified('password')) {
-    //     return next();
-    // }
     try {
         let hash = bcrypt.hashSync(this.password, 10);
         this.password = hash;
-        console.log("made it to here");
     } catch (err) {
         console.error(err);
     }
@@ -39,7 +39,7 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.methods.generateToken = function () {
     const user = this;
-    const token = jwt.sign({_id: user._id}, process.env.JWT_KEY);
+    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
     return token;
 }
 

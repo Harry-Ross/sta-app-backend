@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-    firstname: {
+    teamname: {
         type: String,
         required: true,
         trim: true
     },
-    lastname: {
+    name: {
         type: String,
         required: true,
     },

@@ -2,10 +2,13 @@
 require('dotenv').config()
 
 // Define express app from config file
-let app = require('./config/express-app')
+const app = require('./config/express-app')
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+
+const routes = require('./routes/index');
+app.use('/', routes);
 
 const mongoose = require('./config/mongoose');
 
