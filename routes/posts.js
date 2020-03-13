@@ -32,6 +32,9 @@ app.get('/posts', function (req, res) {
             "profileImg": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/PeteButtigieg_%281%29.JPG/800px-PeteButtigieg_%281%29.JPG" 
         }
     ])
-})
+});
+
+const uploadController = require('./../controllers/posts/upload-post');
+app.post('/upload', uploadController);
 
 module.exports = app;

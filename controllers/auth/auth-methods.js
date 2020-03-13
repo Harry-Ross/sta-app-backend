@@ -9,8 +9,8 @@ function login(req, res, next) {
             bcrypt.compare(req.body.password, user.password, function (err, result) {
                 if (err) console.error(err);
                 if (result) {
-                    const token = jwt.sign({ id: user._id }, req.app.get('secretkey'), { expiresIn: '24h' });
-                    res.status(200).send({ user, token })
+                    const token = user.generateToken();
+                    res.status(200).send({ token });
                 }
                 else {
                     res.status(401).send({ success: false, error: "Authentication error" });
@@ -29,7 +29,7 @@ function register(req, res, next) {
         if (err) {
             res.status(401).send({ success: false, error: "Registration failed" });
         } else {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            const token = user.generateToken();
             res.status(200).send({ success: true, token })
         }
     });

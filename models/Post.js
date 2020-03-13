@@ -6,10 +6,21 @@ const PostSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    name: {
-        type: String,
-        required: true,
+    author: {
+        userid: {
+            type: mongoose.ObjectId,
+            required: true
+        }
     },
+    content: {
+        type: String
+    },
+    images: {
+        type: String,
+    },
+    profileimg: {
+        type: String,
+    }
 });
 
 const Post = mongoose.model('Post', PostSchema);
