@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Post = require('./../../models/Post');
-const User = require('./../../models/User');
+const mysql = require('mysql');
 
 module.exports = function (req, res) {
     const token = req.headers.token;
@@ -11,17 +10,8 @@ module.exports = function (req, res) {
         } else {
             res.status(200).send("Yeah it is done");
             const userId = decoded.id;
-            const post = new Post({
-                
-            });
-            post.save(function (err, post) {
-                if (err) throw err;
-                console.table(post);
-            })
-            // User.findById(userId, function (err, user) {
-            //     user.posts.push();
-            //     user.save(function (err) { if (err) throw err; });
-            // });
+            const query = "SELECT * FROM users"
+            
         }
     });
 }

@@ -10,7 +10,23 @@ const io = require('socket.io')(server);
 const routes = require('./routes/index');
 app.use('/', routes);
 
-const mongoose = require('./config/mongoose');
+const mysql = require('mysql');
+
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'socka'
+});
+
+// connect to database
+db.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('Connected to database');
+});
+global.db = db;
 
 // Set port
 const port = 3000 || process.env.PORT;
