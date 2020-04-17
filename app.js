@@ -13,19 +13,19 @@ app.use('/', routes);
 const mysql = require('mysql');
 
 const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'socka'
+    host: process.env.MYSQL_URL,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PWD,
+    database: 'sta-app'
 });
 
-// connect to database
 db.connect((err) => {
     if (err) {
         throw err;
     }
     console.log('Connected to database');
 });
+
 global.db = db;
 
 // Set port

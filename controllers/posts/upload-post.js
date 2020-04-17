@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const mysql = require('mysql');
 
 module.exports = function (req, res) {
     const token = req.headers.token;
@@ -11,7 +10,10 @@ module.exports = function (req, res) {
             res.status(200).send("Yeah it is done");
             const userId = decoded.id;
             const query = "SELECT * FROM users"
-            
+            db.query(query, (err, result) => {
+                if (err) throw err;
+                console.table(result);
+            })
         }
     });
 }
