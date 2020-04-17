@@ -3,17 +3,21 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
 const uuid = require('uuid');
 
-const User = require('../../models/User');
-
 function login(req, res, next) {
-    User.findOne({ email: req.body.email }, function (err, user) {
+    const sql = mysql.format("SELECT firstname, lastname, password FROM users WHERE email = ?", [req.body.email]);
+
+    db.query(sql, function(err, user) {
         if (err) next(err);
         try {
-            bcrypt.compare(req.body.password, user.password, function (err, result) {
+            bcrypt.compare(req.body.password, user[0].password, function (err, result) {
                 if (err) console.error(err);
                 if (result) {
-                    const token = user.generateToken();
-                    res.status(200).send({ token });
+                    const token = generateToken();
+                    res.status(200).send({
+                        firstname: user[0].firstname,
+                        lastname: user[0].lastname,
+                        token 
+                    });
                 }
                 else {
                     res.status(401).send({ success: false, error: "Authentication error" });
@@ -36,11 +40,12 @@ function register(req, res, next) {
         req.body.firstname, 
         req.body.lastname, 
         req.body.email,
-        req.body.password
+        hashPassword(req.body.password)
     ]);
 
     db.query(sql, function(err, result) {
         if (err) {
+            console.error(err);
             res.status(401).send({ success: false, error: "Registration failed" });
         } else {
             const token = generateToken(user_uuid);
@@ -50,8 +55,16 @@ function register(req, res, next) {
 }
 
 function generateToken(user_uuid) {
-    const token = jwt.sign({ id: user_uuid }, process.env.JWT_SECRET, { expiresIn: '24h' });
-    return token;
+    return jwt.sign({ id: user_uuid }, process.env.JWT_SECRET, { expiresIn: '24h' });
+}
+
+function hashPassword(password) {
+    try {
+        let hash = bcrypt.hashSync(password, 10);
+        return hash;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 module.exports = {
