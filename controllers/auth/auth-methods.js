@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const uuid = require('uuid');
 
 function login(req, res, next) {
-    const sql = mysql.format("SELECT firstname, lastname, password FROM users WHERE email = ?", [req.body.email]);
+    const sql = mysql.format("SELECT user_id, firstname, lastname, password FROM users WHERE email = ?", [req.body.email]);
 
     db.query(sql, function(err, user) {
         if (err) next(err);
@@ -12,7 +12,7 @@ function login(req, res, next) {
             bcrypt.compare(req.body.password, user[0].password, function (err, result) {
                 if (err) console.error(err);
                 if (result) {
-                    const token = generateToken();
+                    const token = generateToken(user[0].user_id);
                     res.status(200).send({
                         firstname: user[0].firstname,
                         lastname: user[0].lastname,
