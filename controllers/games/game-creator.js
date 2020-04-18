@@ -19,11 +19,11 @@ function createGame(req, res) {
             decoded.id
         ]);
 
-        db.query(sql, function(err, result) {
+        db.query(sql, function(err) {
             if (err) {
                 res.status(401).send({ success: false, error: "Regisration failed", message: err });
             } else {
-                res.status(200).send({ success: true, game_code});
+                res.status(200).send({ success: true, game_id, game_code});
             }
         })
     });
