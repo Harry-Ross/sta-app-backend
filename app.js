@@ -16,7 +16,7 @@ const db = mysql.createConnection ({
     host: process.env.MYSQL_URL,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PWD,
-    database: 'sta-app'
+    database: process.env.MYSQL_DB
 });
 
 db.connect((err) => {
