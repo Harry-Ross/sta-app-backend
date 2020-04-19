@@ -19,7 +19,7 @@ function joinGame(req, res) {
                 addUserToGame(decoded.id, result[0].game_id, 0);
                 res.status(200).send({ success: true })
             } catch (e) {
-                res.status(401).send(e);
+                res.status(500).send(e);
             }
         })
         

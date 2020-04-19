@@ -17,7 +17,7 @@ function createTeam(req, res) {
         ])
         db.query(sql, function(err, result) {
             if (err) {
-                res.status(401).send(err);
+                res.status(500).send(err);
             } else {
                 addUserToTeam(decoded.id, team_id, 10);
                 res.status(200).send({ success: true, team_id})

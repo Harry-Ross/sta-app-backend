@@ -21,7 +21,7 @@ function createGame(req, res) {
 
         db.query(sql, function(err) {
             if (err) {
-                res.status(401).send({ success: false, error: "Regisration failed", message: err });
+                res.status(500).send({ success: false, error: "Insertion failed", message: err });
             } else {
                 res.status(200).send({ success: true, game_id, game_code});
             }
@@ -32,7 +32,7 @@ function createGame(req, res) {
 function generateGameCode() {
     const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let game_code = "";
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         game_code = game_code + characters.charAt(Math.floor(Math.random() * 36));
     } 
     return game_code;
