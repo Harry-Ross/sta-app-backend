@@ -28,6 +28,10 @@ db.connect((err) => {
 
 global.db = db;
 
+app.get('/', function(req, res) {
+    res.status(200).send("Yeah, you like dick and balls huh?")
+})
+
 // Set port
 const port = 3000 || process.env.PORT;
 
