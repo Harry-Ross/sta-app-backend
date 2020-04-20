@@ -7,5 +7,4 @@ const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 
-
 module.exports = app;
