@@ -29,7 +29,7 @@ db.connect((err) => {
 global.db = db;
 
 app.get('/', function(req, res) {
-    res.status(200).send("Yeah, you like dick and balls huh?")
+    res.status(200).send("Alex Yuen is a fucking boomer")
 })
 
 // Set port
