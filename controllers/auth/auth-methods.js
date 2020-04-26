@@ -55,7 +55,6 @@ function register(req, res, next) {
 }
 
 function generateToken(user_uuid, firstname, lastname, email) {
-    console.log(user_uuid);
     return jwt.sign({ id: user_uuid, firstname, lastname, email }, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
 

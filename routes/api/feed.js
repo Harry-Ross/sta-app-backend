@@ -34,7 +34,7 @@ app.get('/posts', function (req, res) {
     ])
 });
 
-const uploadController = require('./../controllers/posts/upload-post');
+const uploadController = require('./../../controllers/posts/upload-post');
 app.post('/upload', uploadController);
 
 module.exports = app;

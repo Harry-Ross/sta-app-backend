@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express.Router();
 
-const authMethods = require('../controllers/auth/auth-methods');
+const authMethods = require('./../../controllers/auth/auth-methods');
 
 app.post('/register', authMethods.register);
 

@@ -28,10 +28,6 @@ db.connect((err) => {
 
 global.db = db;
 
-app.get('/', function(req, res) {
-    res.status(200).send("Alex Yuen is a fucking boomer")
-})
-
 // Set port
 const port = process.env.PORT || 3000;
 
