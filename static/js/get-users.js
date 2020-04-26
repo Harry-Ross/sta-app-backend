@@ -6,7 +6,7 @@ var requestOptions = {
     headers: myHeaders,
 };
 
-fetch("http://localhost:3000/api/users", requestOptions)
+fetch("/api/users", requestOptions)
 .then((response) => {
     return response.json()
 })
