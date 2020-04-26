@@ -16,4 +16,8 @@ app.get('/', function(req, res) {
     res.render('index', {})
 });
 
+app.get('/users', function(req, res) {
+    res.render('users', {})
+});
+
 module.exports = app;

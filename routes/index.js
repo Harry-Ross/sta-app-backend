@@ -7,6 +7,9 @@ app.use('/api', FeedRoutes);
 const AuthRoutes = require('./api/auth');
 app.use('/api', AuthRoutes);
 
+const UserRoutes = require('./api/users');
+app.use('/api', UserRoutes);
+
 const GamesRoutes = require('./api/games');
 app.use('/api/games', GamesRoutes);
 
