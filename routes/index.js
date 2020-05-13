@@ -5,7 +5,7 @@ const FeedRoutes = require('./api/feed');
 app.use('/api', FeedRoutes);
 
 const AuthRoutes = require('./api/auth');
-app.use('/api', AuthRoutes);
+app.use('/api/auth', AuthRoutes);
 
 const UserRoutes = require('./api/users');
 app.use('/api', UserRoutes);

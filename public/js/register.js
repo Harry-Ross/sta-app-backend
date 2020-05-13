@@ -1,13 +1,17 @@
-function login () {
+function register() {
+    var firstnameElement = document.getElementById('firstname');
+    var lastnameElement = document.getElementById('lastname');
     var emailElement = document.getElementById('email');
     var passwordElement = document.getElementById('password');
 
+    var firstname = firstnameElement.value;
+    var lastname = lastnameElement.value;
     var email = emailElement.value;
     var password = passwordElement.value;
 
-    var data = { email, password }
+    var data = { firstname, lastname, email, password }
 
-    fetch('/api/login', {
+    fetch('/api/auth/register', {
         method: 'POST', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
@@ -16,11 +20,11 @@ function login () {
     })
     .then((response) => response.json())
     .then((data) => {
+        console.log("here")
         sessionStorage.setItem('token', data.token);
         window.location.replace("/")
     })
     .catch((error) => {
         console.error('Error:', error);
     });
-
 }
