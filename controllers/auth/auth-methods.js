@@ -7,7 +7,7 @@ function login(req, res, next) {
     const sql = mysql.format("SELECT id, firstname, lastname, password FROM users WHERE email = ?", [req.body.email]);
 
     db.query(sql, function(err, user) {
-        if (err) next(err);
+        if (err) console.error(err);
         try {
             bcrypt.compare(req.body.password, user[0].password, function (err, result) {
                 if (err) console.error(err);
@@ -30,7 +30,7 @@ function login(req, res, next) {
     })
 }
 
-function register(req, res, next) {
+function register(req, res) {
     const user_uuid = uuid.v4();
 
     // TODO: Much cleaner way to output the request body

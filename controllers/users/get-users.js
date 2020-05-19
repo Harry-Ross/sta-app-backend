@@ -5,7 +5,7 @@ function getUsers(req, res) {
     const token = req.headers.token;
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
         if (err) {
-            res.status(401);
+            res.status(401).send({ success: false });
         }
         let sql = mysql.format("SELECT admin FROM users WHERE id=?", [decoded.id]);
         db.query(sql, (err, result) => {

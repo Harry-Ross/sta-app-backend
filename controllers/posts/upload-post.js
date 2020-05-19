@@ -19,7 +19,7 @@ module.exports = function (req, res) {
         ]);
         db.query(sql, (err) => {
             if (err) {
-                res.status(401);
+                res.status(500);
             } 
             res.status(200);
         });
