@@ -7,7 +7,7 @@ function getActivities(req, res) {
             if (err) {
                 res.status(401).send(err);
             } else {
-                res.status(200).send({ success: "true", result });
+                res.status(200).send({ success: "true", activities: result });
             }
         })
     })
