@@ -11,7 +11,7 @@ module.exports = function (req, res) {
         } 
         res.status(200).send("Yeah it is done");
         const user_id = decoded.id;
-        const sql = mysql.format("INSERT INTO posts (post_id, user_id, team_id, content) VALUES (?, ?, ?, ?)" [
+        const sql = mysql.format("INSERT INTO posts (post_id, user_id, team_id, content) VALUES (?, ?, ?, ?)", [
             uuid.v4(), 
             user_id, 
             req.body.team_id,
