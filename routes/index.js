@@ -13,9 +13,6 @@ app.use('/api', UserRoutes);
 const GamesRoutes = require('./api/games');
 app.use('/api/games', GamesRoutes);
 
-const ActivitiesRoutes = require('./api/activities');
-app.use('/api', ActivitiesRoutes);
-
 const ViewRoutes = require('./views');
 app.use('/', ViewRoutes);
 
