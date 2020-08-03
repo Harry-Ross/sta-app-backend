@@ -21,11 +21,13 @@ function login(req, res, next) {
                 }
                 else {
                     res.status(401).send({ success: false, error: "Authentication error" });
+                    next(err);
                 }
             })
         }
         catch (err) {
             res.status(401).send({ success: false, error: "Authentication error" });
+            next(err);
         }
     })
 }
@@ -47,6 +49,7 @@ function register(req, res) {
         if (err) {
             console.error(err);
             res.status(401).send({ success: false, error: "Registration failed" });
+            next(err);
         } else {
             const token = generateToken(user_uuid, req.body.firstname, req.body.lastname, req.body.email);
             res.status(200).send({ success: true, token })

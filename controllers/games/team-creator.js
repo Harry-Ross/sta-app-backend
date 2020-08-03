@@ -4,7 +4,7 @@ const uuid = require('uuid');
 
 const addUserToTeam = require('./methods/append-user-team');
 
-function createTeam(req, res) {
+function createTeam(req, res, next) {
     jwt.verify(req.headers.token, process.env.JWT_SECRET, function(err, decoded) {
         if (err) res.status(200).send(err);
         const team_id = uuid.v4();
@@ -18,10 +18,10 @@ function createTeam(req, res) {
         db.query(sql, function(err, result) {
             if (err) {
                 res.status(500).send(err);
-            } else {
-                addUserToTeam(decoded.id, team_id, 10);
-                res.status(200).send({ success: true, team_id})
+                next(err);
             }
+            addUserToTeam(decoded.id, team_id, 10);
+            res.status(200).send({ success: true, team_id});        
         })
     })
 }

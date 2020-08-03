@@ -2,12 +2,13 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
 const uuid = require('uuid');
 
-module.exports = function (req, res) {
+module.exports = function (req, res, next) {
     const token = req.headers.token;
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
         if (err) {
             res.status(401).send(err);
             console.error(err);
+            next(err);
         } 
         res.status(200).send("Yeah it is done");
         const user_id = decoded.id;
@@ -19,7 +20,8 @@ module.exports = function (req, res) {
         ]);
         db.query(sql, (err) => {
             if (err) {
-                res.status(500);
+                res.status(500).send({ success: false });
+                next(err);
             } 
             res.status(200);
         });

@@ -2,21 +2,21 @@ const mysql = require('mysql');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 
-function createActivity(req, res) {
+function createActivity(req, res, next) {
     jwt.verify(req.headers.token, process.env.JWT_SECRET, function(err, decoded) {
         if (err) {
             res.status(500).send({ success: false, err });
-        } else {
-            insertActivity(
-                req.body.name,
-                req.body.description,
-                req.body.points,
-                req.body.lat,
-                req.body.long,
-                req.body.type
-            )
-            res.status(200).send({ success: true });
+            next(err);
         }
+        insertActivity(
+            req.body.name,
+            req.body.description,
+            req.body.points,
+            req.body.lat,
+            req.body.long,
+            req.body.type
+        )
+        res.status(200).send({ success: true });
     })
 }
 

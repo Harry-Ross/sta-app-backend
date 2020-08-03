@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 
-function createGame(req, res) {
+function createGame(req, res, next) {
     const token = req.headers.token;
     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
         if (err) throw err;
@@ -22,9 +22,9 @@ function createGame(req, res) {
         db.query(sql, function(err) {
             if (err) {
                 res.status(500).send({ success: false, error: "Insertion failed", message: err });
-            } else {
-                res.status(200).send({ success: true, game_id, game_code});
+                next(err);
             }
+            res.status(200).send({ success: true, game_id, game_code});
         })
     });
 }
